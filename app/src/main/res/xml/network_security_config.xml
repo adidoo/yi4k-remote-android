@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Yi 4K only exposes its control/media API over plain HTTP/TCP on its own
+     access point (192.168.42.1), so cleartext traffic is allowed for that host only. -->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">192.168.42.1</domain>
+    </domain-config>
+</network-security-config>
