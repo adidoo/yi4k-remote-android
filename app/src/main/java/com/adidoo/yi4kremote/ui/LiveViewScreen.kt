@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.BatteryFull
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.FiberManualRecord
 import androidx.compose.material.icons.filled.LinkOff
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Icon
@@ -50,6 +51,7 @@ fun LiveViewScreen(
     onTakePhoto: () -> Unit,
     onToggleRecording: () -> Unit,
     onDisconnect: () -> Unit,
+    onOpenSettings: () -> Unit,
     onStatusMessageShown: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -105,6 +107,9 @@ fun LiveViewScreen(
                 uiState.videoResolution?.let { StatusChip(icon = null, label = it) }
                 uiState.estimatedRemainingSeconds?.let {
                     StatusChip(icon = Icons.Filled.Timer, label = formatDuration(it))
+                }
+                IconButton(onClick = onOpenSettings) {
+                    Icon(Icons.Filled.Settings, contentDescription = "Réglages avancés", tint = Color.White)
                 }
                 IconButton(onClick = onDisconnect) {
                     Icon(Icons.Filled.LinkOff, contentDescription = "Déconnecter", tint = Color.White)

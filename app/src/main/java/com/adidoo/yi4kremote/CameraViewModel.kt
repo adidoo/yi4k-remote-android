@@ -130,6 +130,20 @@ class CameraViewModel(
         _uiState.update { it.copy(statusMessage = null) }
     }
 
+    fun setSetting(key: String, value: String) {
+        viewModelScope.launch {
+            runCatching {
+                controller.setSetting(key, value)
+                controller.refreshSettings()
+            }.onFailure { setStatus("Échec du réglage : ${it.message}") }
+        }
+    }
+
+    /** Suspend on purpose: called from a per-row `LaunchedEffect` in the settings screen, so
+     * each row loads its own choices lazily as it enters composition rather than blocking connect(). */
+    suspend fun settingChoices(key: String): List<String> =
+        runCatching { controller.getSettingChoices(key) }.getOrDefault(emptyList())
+
     private fun startLiveView() {
         viewModelScope.launch {
             runCatching { controller.startLiveView() }
