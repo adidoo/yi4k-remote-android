@@ -65,6 +65,8 @@ private val KNOWN_SETTINGS: Map<String, SettingSpec> = mapOf(
     "precise_self_running" to SettingSpec("Retardateur en cours", SettingCategory.PHOTO, readOnly = true),
     "precise_self_remain_time" to SettingSpec("Temps restant retardateur", SettingCategory.PHOTO, readOnly = true),
     "piv_enable" to SettingSpec("PIV (photo pendant vidéo)", SettingCategory.PHOTO),
+    "burst_capture_number" to SettingSpec("Nombre de photos en rafale", SettingCategory.PHOTO),
+    "photo_flat_color" to SettingSpec("Couleurs plates photo", SettingCategory.PHOTO),
 
     // Qualité d'image
     "iq_eis_enable" to SettingSpec("Stabilisation électronique (EIS)", SettingCategory.IMAGE),
@@ -90,6 +92,7 @@ private val KNOWN_SETTINGS: Map<String, SettingSpec> = mapOf(
     "auto_low_light" to SettingSpec("Basse lumière automatique", SettingCategory.IMAGE),
     "support_auto_low_light" to SettingSpec("Basse lumière auto disponible", SettingCategory.IMAGE, readOnly = true),
     "meter_mode" to SettingSpec("Mode de mesure", SettingCategory.IMAGE),
+    "eis_support_status" to SettingSpec("Stabilisation électronique disponible", SettingCategory.IMAGE, readOnly = true),
 
     // Son
     "buzzer_volume" to SettingSpec("Volume du bip", SettingCategory.SON),
@@ -97,15 +100,21 @@ private val KNOWN_SETTINGS: Map<String, SettingSpec> = mapOf(
     "sound_effect" to SettingSpec("Effet sonore", SettingCategory.SON),
     "sound_effect_support" to SettingSpec("Effet sonore disponible", SettingCategory.SON, readOnly = true),
     "rec_audio_support" to SettingSpec("Enregistrement audio disponible", SettingCategory.SON, readOnly = true),
+    "mic_level" to SettingSpec("Niveau micro", SettingCategory.SON),
 
     // Réseau — lecture seule par prudence : la SDK suppose une IP AP fixe (192.168.42.1),
     // modifier wifi_mode/sta_* depuis l'app pourrait faire basculer la caméra en mode client
     // et casser cette hypothèse (perte de connexion).
     "sta_connect_password" to SettingSpec("Mot de passe Wi-Fi (mode station)", SettingCategory.RESEAU, readOnly = true),
     "sta_ip" to SettingSpec("IP (mode station)", SettingCategory.RESEAU, readOnly = true),
+    "sta_ssid" to SettingSpec("SSID (mode station)", SettingCategory.RESEAU, readOnly = true),
+    "sta_password" to SettingSpec("Mot de passe (mode station)", SettingCategory.RESEAU, readOnly = true),
     "wifi_mode" to SettingSpec("Mode Wi-Fi", SettingCategory.RESEAU, readOnly = true),
     "wifi_country" to SettingSpec("Pays Wi-Fi", SettingCategory.RESEAU, readOnly = true),
     "wifi_country_editable" to SettingSpec("Pays Wi-Fi modifiable", SettingCategory.RESEAU, readOnly = true),
+    "wifi_ssid" to SettingSpec("Nom du réseau Wi-Fi (SSID)", SettingCategory.RESEAU, readOnly = true),
+    "wifi_password" to SettingSpec("Mot de passe Wi-Fi (point d'accès)", SettingCategory.RESEAU, readOnly = true),
+    "restore_wifi" to SettingSpec("Réinitialisation Wi-Fi", SettingCategory.RESEAU, readOnly = true),
 
     // Système
     YiProtocol.KEY_SYSTEM_MODE to SettingSpec("Mode système", SettingCategory.SYSTEME),
@@ -122,10 +131,16 @@ private val KNOWN_SETTINGS: Map<String, SettingSpec> = mapOf(
     "dual_stream_status" to SettingSpec("Flux double", SettingCategory.SYSTEME, readOnly = true),
     "led_mode" to SettingSpec("Mode LED", SettingCategory.SYSTEME),
     "language" to SettingSpec("Langue", SettingCategory.SYSTEME),
+    "serial_number" to SettingSpec("Numéro de série", SettingCategory.SYSTEME, readOnly = true),
+    // Déclencheurs de réinitialisation, pas de vrais réglages à éditer — verrouillés en
+    // lecture seule pour ne jamais risquer un reset accidentel depuis cet écran.
+    "restore_factory_settings" to SettingSpec("Réinitialisation usine", SettingCategory.SYSTEME, readOnly = true),
+    "restore_bt" to SettingSpec("Réinitialisation Bluetooth", SettingCategory.SYSTEME, readOnly = true),
 
     // Stockage / État
     YiProtocol.KEY_SD_CARD_STATUS to SettingSpec("État carte SD", SettingCategory.STOCKAGE, readOnly = true),
     YiProtocol.KEY_APP_STATUS to SettingSpec("État caméra", SettingCategory.ETAT, readOnly = true),
+    "streaming_status" to SettingSpec("Diffusion en cours", SettingCategory.ETAT, readOnly = true),
 )
 
 /** Falls back to [SettingCategory.AUTRES] read-only for any key not in [KNOWN_SETTINGS]. */
